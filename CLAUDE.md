@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 現在は設計フェーズ。実装はまだ存在しない。
 
 ## 使用技術
+
 - 言語: TypeScript
 - フレームワーク: Next.js (App Router)
 - UI コンポーネント: shadcn/ui + Tailwind CSS
@@ -19,11 +20,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 設計ドキュメント
 
-| ファイル | 内容 |
-|---|---|
-| `doc/requirements.md` | 機能要件・ERD（Mermaid） |
-| `doc/screen-definition.md` | 画面一覧・画面遷移図・各画面の表示項目と操作定義 |
-| `doc/api-spec.md` | REST API仕様（エンドポイント・リクエスト/レスポンス例・バリデーション・エラー定義） |
+| ファイル                   | 内容                                                                                |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| `doc/requirements.md`      | 機能要件・ERD（Mermaid）                                                            |
+| `doc/screen-definition.md` | 画面一覧・画面遷移図・各画面の表示項目と操作定義                                    |
+| `doc/api-spec.md`          | REST API仕様（エンドポイント・リクエスト/レスポンス例・バリデーション・エラー定義） |
 
 ## アーキテクチャの重要事項
 
