@@ -3,17 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint": "eslint \"**/*.{js,cjs,mjs}\" --no-error-on-unmatched-pattern",
+    "lint": "eslint \"**/*.{js,cjs,mjs,ts,tsx}\" --no-error-on-unmatched-pattern",
     "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "prepare": "husky || true",
-    "ci": "npm run lint && npm run test"
+    "ci": "npm run lint && npm run format:check && npm run test"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.1.0",
     "husky": "^9.1.7",
+    "prettier": "^3.5.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0",
     "vitest": "^3.0.5"
   }
 }
