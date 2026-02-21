@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ===== Enums =====
+
+enum Role {
+  sales
+  manager
+}
+
+enum ReportStatus {
+  draft
+  submitted
+}
+
+// ===== Models =====
+
+model User {
+  userId       Int      @id @default(autoincrement()) @map("user_id")
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role
+  department   String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  reports  DailyReport[]
+  comments Comment[]
+
+  @@map("users")
+}
+
+model DailyReport {
+  reportId    Int          @id @default(autoincrement()) @map("report_id")
+  userId      Int          @map("user_id")
+  reportDate  DateTime     @map("report_date") @db.Date
+  problem     String?
+  plan        String?
+  status      ReportStatus @default(draft)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  user         User          @relation(fields: [userId], references: [userId])
+  visitRecords VisitRecord[]
+  comments     Comment[]
+
+  @@unique([userId, reportDate])
+  @@map("daily_reports")
+}
+
+// Stub models for future implementation (Issues #10, #11)
+model VisitRecord {
+  id          Int         @id @default(autoincrement())
+  reportId    Int         @map("report_id")
+  dailyReport DailyReport @relation(fields: [reportId], references: [reportId])
+
+  @@map("visit_records")
+}
+
+model Comment {
+  id          Int         @id @default(autoincrement())
+  userId      Int         @map("user_id")
+  reportId    Int         @map("report_id")
+  user        User        @relation(fields: [userId], references: [userId])
+  dailyReport DailyReport @relation(fields: [reportId], references: [reportId])
+
+  @@map("comments")
+}
