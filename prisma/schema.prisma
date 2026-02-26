@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  userId       Int      @id @default(autoincrement()) @map("user_id")
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role
+  department   String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  reports  DailyReport[]
+  comments Comment[]
+
+  @@map("users")
+}
+
+enum Role {
+  sales
+  manager
+}
+
+// Stub models for future implementation
+model DailyReport {
+  id     Int  @id @default(autoincrement())
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [userId])
+
+  @@map("daily_reports")
+}
+
+model Comment {
+  id     Int  @id @default(autoincrement())
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [userId])
+
+  @@map("comments")
+}
